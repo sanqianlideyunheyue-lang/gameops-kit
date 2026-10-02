@@ -6,6 +6,10 @@
 
 需要 Node.js 18 或更新版本。无第三方依赖，无需 `npm install`。
 
+**Windows：**双击 `start-gameops.cmd`，脚本会启动服务并自动打开浏览器。首次启动会保留一个命令窗口；关闭该窗口即可停止服务。如果服务已经运行，再次双击会直接打开页面。
+
+**其他系统或终端运行：**
+
 ```bash
 npm start
 ```
@@ -50,6 +54,7 @@ CSV 上限 10 MB。导入数据只在页面内存中处理，刷新后恢复示�
 ```text
 gameops-kit/
 ├── index.html          # 页面结构
+├── start-gameops.cmd   # Windows 双击启动
 ├── styles.css          # 响应式样式
 ├── src/core.js         # CSV、指标、分群、漏斗
 ├── src/sample-data.js  # 可复现模拟数据
