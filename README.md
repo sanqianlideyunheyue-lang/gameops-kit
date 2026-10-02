@@ -55,7 +55,7 @@ gameops-kit/
 ├── src/sample-data.js  # 可复现模拟数据
 ├── src/app.js          # 页面交互与复盘导出
 ├── tests/              # 核心指标测试
-├── docs/               # 口径、案例、界面截图
+├── docs/               # 指标口径与案例
 └── server.js           # 本地静态服务
 ```
 

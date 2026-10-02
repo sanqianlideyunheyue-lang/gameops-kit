@@ -42,4 +42,14 @@ test('normalization rejects missing fields and negative revenue', () => {
   const mapping = { game_id: 'game', player_id: 'player', event_date: 'date', event_name: 'event', revenue: 'revenue' };
   assert.throws(() => core.normalize([{ game: 'x', player: 'p', date: '2026-09-01', event: '', revenue: '0' }], mapping));
   assert.throws(() => core.normalize([{ game: 'x', player: 'p', date: '2026-09-01', event: 'session_start', revenue: '-1' }], mapping));
+  assert.throws(() => core.normalize([{ game: 'x', player: 'p', date: '2026-02-30', event: 'session_start', revenue: '0' }], mapping));
+});
+
+test('imported CSV columns can map to the shared event contract', () => {
+  const parsed = core.parseCSV('game,player,date,event,source\ng,p1,2026-09-01,install,organic\ng,p1,2026-09-01,session_start,organic\n');
+  const events = core.normalize(parsed.rows, { game_id: 'game', player_id: 'player', event_date: 'date', event_name: 'event', channel: 'source' });
+  const result = core.analyze(events, { game: 'g' });
+  assert.equal(result.installs, 1);
+  assert.equal(result.daily[0].dau, 1);
+  assert.equal(result.players[0].channel, 'organic');
 });

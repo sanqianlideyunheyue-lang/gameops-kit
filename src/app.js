@@ -67,7 +67,7 @@
     }).join('');
     return `<svg class="chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="${esc(field)} 按日趋势">${ticks}<path d="${path}" fill="none" stroke="#26aa8c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>${marked}<text x="${padL}" y="${height - 8}" fill="#8ba0a5" font-size="11">${esc(series[0].date)}</text><text x="${width - padR}" y="${height - 8}" text-anchor="end" fill="#8ba0a5" font-size="11">${esc(series.at(-1).date)}</text></svg>`;
   }
-  function gameAnnotations(game) { return annotations.filter(a => a.game === game).sort((a, b) => b.date.localeCompare(a.date)); }
+  function gameAnnotations(game) { return annotations.filter(a => a.game === game && a.source === source).sort((a, b) => b.date.localeCompare(a.date)); }
   function overview(result) {
     const notes = gameAnnotations(filters().game);
     return `<div class="grid metrics">
@@ -122,7 +122,7 @@
       if (activeTab === 'timeline') {
         $('annotationForm').addEventListener('submit', e => {
           e.preventDefault(); const data = new FormData(e.target);
-          annotations.push({ game: filters().game, date: data.get('date'), type: data.get('type'), text: String(data.get('text')).trim() });
+          annotations.push({ game: filters().game, source, date: data.get('date'), type: data.get('type'), text: String(data.get('text')).trim() });
           saveAnnotations(); render();
         });
         document.querySelectorAll('[data-remove]').forEach(button => button.addEventListener('click', () => {
@@ -148,7 +148,7 @@
       try {
         const mapping = Object.fromEntries([...document.querySelectorAll('[data-field]')].map(el => [el.dataset.field, el.value]));
         const imported = core.normalize(pendingCSV.rows, mapping);
-        events = imported; source = '导入数据'; annotations = []; saveAnnotations();
+        events = imported; source = '导入数据';
         setupGames(imported[0].game_id); $('mappingPanel').innerHTML = ''; notice(`已载入 ${formatNum(imported.length)} 条事件；数据只保存在当前页面。`); render();
       } catch (error) { notice(error.message); }
     });
