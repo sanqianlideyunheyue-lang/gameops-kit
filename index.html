@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GameOps Kit · 游戏运营分析与复盘</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-icon">G</span><div><strong>GameOps Kit</strong><small>游戏运营分析与复盘</small></div></div>
+      <div class="side-section"><div class="eyebrow">数据集</div><select id="gameSelect" aria-label="选择游戏"></select><p id="gameDescription" class="muted"></p></div>
+      <div class="side-section"><div class="eyebrow">分析范围</div>
+        <label>开始日期<input id="startDate" type="date"></label><label>结束日期<input id="endDate" type="date"></label>
+        <label>渠道<select id="channelFilter"></select></label><label>设备<select id="platformFilter"></select></label><label>版本<select id="versionFilter"></select></label>
+      </div>
+      <div class="side-section"><div class="eyebrow">导入自己的数据</div><input id="csvFile" type="file" accept=".csv,text/csv"><p class="muted">CSV 在浏览器本地处理，不会上传到服务器。</p><div id="mappingPanel"></div></div>
+      <div class="side-foot">模拟数据 · 固定随机种子 · 指标口径见仓库文档</div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div><div class="eyebrow">PRODUCT OPERATIONS WORKSPACE</div><h1>看清变化，形成决策</h1><p>从经营指标到人群定位，再到运营动作与复盘。</p></div><span id="sourceBadge" class="badge">模拟数据</span></header>
+      <nav class="tabs" aria-label="主导航"><button data-tab="overview" class="active">经营概览</button><button data-tab="diagnosis">问题定位</button><button data-tab="timeline">运营动作</button><button data-tab="review">复盘导出</button></nav>
+      <div id="notice" role="status"></div><section id="content"></section>
+      <footer>GameOps Kit · 公开作品集演示 · 所有示例数据均为合成数据</footer>
+    </main>
+  </div>
+  <script src="src/core.js"></script><script src="src/sample-data.js"></script><script src="src/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "gameops-kit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Platform-neutral game operations analytics and review portfolio project",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "engines": { "node": ">=18" }
+}
